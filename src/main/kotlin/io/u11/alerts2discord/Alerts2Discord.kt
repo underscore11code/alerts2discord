@@ -21,14 +21,15 @@ object Alerts2Discord {
     private val logger = logger("Alerts2Discord")
 
     val config = Config(A2DConfig::class.java, File("config.conf")).also {
-        logger.info("Loading config...")
+        logger.info("Loading config ${it.file.absolutePath}")
         it.load()
         it.save()
+        logger.info("Loaded config:")
+        logger.info(it().toString())
         if (it().configs["default"] == null) {
             logger.error("\"default\" config not found!")
             exitProcess(1)
         }
-        logger.info("Done.")
     }
 
     val javalin = Javalin.create {
