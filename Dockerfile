@@ -9,4 +9,5 @@ RUN mkdir /app
 
 COPY --from=build /home/gradle/src/build/libs/ /app/
 
-ENTRYPOINT ["java","-jar","/app/alerts2discord.jar"]
+WORKDIR /app
+ENTRYPOINT ["java", "-Dio.u11.alerts2discord.disablesaving=true","-jar","/app/alerts2discord.jar"]

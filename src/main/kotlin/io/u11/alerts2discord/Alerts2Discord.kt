@@ -23,7 +23,9 @@ object Alerts2Discord {
     val config = Config(A2DConfig::class.java, File("config.conf")).also {
         logger.info("Loading config ${it.file.absolutePath}")
         it.load()
-        it.save()
+        if (!System.getProperty("io.u11.alerts2discord.disablesaving").toBoolean()) {
+            it.save()
+        }
         logger.info("Loaded config:")
         logger.info(it().toString())
         if (it().configs["default"] == null) {
